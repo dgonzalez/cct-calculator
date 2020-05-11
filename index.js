@@ -1,10 +1,15 @@
+operations = require('./operations')
+
 const fastify = require('fastify')({
   logger: true
 })
 
-// Declare a route
 fastify.get('/sum', function (request, reply) {
-  reply.send({ result: (parseInt(request.query.a) + parseInt(request.query.b)) })
+  reply.send({ result: operations.sum(request.query.a, request.query.b) })
+})
+
+fastify.get('/mul', function (request, reply) {
+  reply.send({ result: operations.mul(request.query.a, request.query.b) })
 })
 
 // Run the server!

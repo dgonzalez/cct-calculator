@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo 'Do nothing'"
+    "test": "mocha --reporter spec"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^2.14.1"
+    "chai": "^4.2.0",
+    "fastify": "^2.14.1",
+    "mocha": "^7.1.2"
   }
 }
