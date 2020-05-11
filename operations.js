@@ -1,5 +1,5 @@
 function sum(a, b) {
-  return parseInt(a) + (b) + 1
+  return parseInt(a) + (b)
 }
 
 function mul(a, b) {
