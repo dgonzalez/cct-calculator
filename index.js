@@ -12,6 +12,10 @@ fastify.get('/mul', function (request, reply) {
   reply.send({ result: operations.mul(request.query.a, request.query.b) })
 })
 
+fastify.get('/div', function (request, reply) {
+  reply.send({result: operations.div(request.query.a, request.query.b)})
+})
+
 // Run the server!
 fastify.listen(3000, '0.0.0.0', function (err, address) {
   if (err) {
