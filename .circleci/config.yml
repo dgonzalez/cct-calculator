@@ -36,10 +36,9 @@ jobs:
       # Initialize the `gcloud` CLI.
       - gcp-gke/init
       # Update a deployment Docker image.
-      - run: |
-        gcloud container clusters get-credentials cct-calculator
-        kubectl apply -f calculator/deployment.yaml
-        kubectl apply -f calculator/service.yaml    
+      - run: gcloud container clusters get-credentials cct-calculator
+      - run: kubectl apply -f calculator/deployment.yaml
+      - run: kubectl apply -f calculator/service.yaml
           
 workflows:
   build_update_deploy:
