@@ -1,17 +1,62 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@2.1.1
+  gcp-gke: circleci/gcp-gke@0.1.0
+  gcr: circleci/gcp-gcr@0.0.2
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: node
+    description: Install npm
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      # Install node
+      - run: npm install
+      # Install npm
+      - run: npm test
+  Build-Push-Image-Docker:
+    description: Build and push image to Google Container Registry
+    machine: true
+    steps:
+      - checkout
+      - gcr/gcr-auth
+      - gcr/build-image:
+          image: circle-gke
+          tag: "v2" #Change version number e.g to 'v3' when updating application
+      - gcr/push-image:
+          image: circle-gke
+          tag: "v2" #Change version number e.g to 'v3' when updating application
+    
+  deploy:
+    description: Deploy application to Google Kubernetes Engine
+    machine: true
+    steps:
+      - checkout
+      # Install `gcloud` and `kubectl` if not already installed.
+      - gcp-gke/install
+      # Initialize the `gcloud` CLI.
+      - gcp-gke/init
+      # Update a deployment Docker image.
+      - run: gcloud container clusters get-credentials cct-calculator
+      - run: kubectl apply -f calculator/deployment.yaml
+      - run: kubectl apply -f calculator/service.yaml
+          
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  build_update_deploy:
+    jobs:
+      - build
+      - Build-Push-Image-Docker:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - Build-Push-Image-Docker
+          filters:
+            branches:
+              only:
+                - master
+
