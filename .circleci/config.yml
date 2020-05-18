@@ -48,6 +48,12 @@ workflows:
       - Build-Push-Image-Docker:
           requires:
             - build
+          branches:
+            only:
+              - master
       - deploy:
           requires:
             - Build-Push-Image-Docker
+          branches:
+            only:
+              - master
