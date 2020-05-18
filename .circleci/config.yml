@@ -5,18 +5,15 @@ orbs:
   gcr: circleci/gcp-gcr@0.0.2
 jobs:
   build:
+    docker:
+      - image: node
     description: Install npm
-    # machine option runs your jobs in a dedicated, ephemeral VM that has the following specifications:
-    machine: true
     steps:
       - checkout
       # Install node
-      - node/install
+      - run: npm install
       # Install npm
-      - node/install-npm
-      # Download and cache dependencies
-      - node/test:
-          version: 12.16.0
+      - run: npm test
   Build-Push-Image-Docker:
     description: Build and push image to Google Container Registry
     machine: true
