@@ -37,7 +37,7 @@ jobs:
       - gcp-gke/init
       # Update a deployment Docker image.
       - gcp-gke/rollout-image:
-          deployment: calculator-deployment
+          deployment: cct-calculator
           container: calculator
           image: gcr.io/cct-devops-2020/circle-gke:v2 # change version when updating
 workflows:
