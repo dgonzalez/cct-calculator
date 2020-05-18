@@ -22,10 +22,10 @@ jobs:
       - gcr/gcr-auth
       - gcr/build-image:
           image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          tag: "v3" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
           image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          tag: "v3" #Change version number e.g to 'v3' when updating application
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
