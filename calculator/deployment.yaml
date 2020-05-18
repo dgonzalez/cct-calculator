@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: calculator
-        image: gcr.io/cct-devops-2020/circleci-gke:v3
+        image: gcr.io/cct-devops-2020/circle-gke:v3
         ports:
         - containerPort: 3000
