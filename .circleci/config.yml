@@ -31,6 +31,7 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
+      - checkout
       # Install `gcloud` and `kubectl` if not already installed.
       - gcp-gke/install
       # Initialize the `gcloud` CLI.
