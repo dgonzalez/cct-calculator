@@ -16,6 +16,10 @@ fastify.get('/div', function (request, reply) {
   reply.send({result: operations.div(request.query.a, request.query.b)})
 })
 
+fastify.get('/sub', function (request, reply) {
+  reply.send({result: operations.sub(request.query.a, request.query.b)})
+})
+
 // Run the server!
 fastify.listen(3000, '0.0.0.0', function (err, address) {
   if (err) {
